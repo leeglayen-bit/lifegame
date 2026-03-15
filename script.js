@@ -6,7 +6,8 @@
     money: 100,
     energy: 100,
     mood: 80,
-    fans: 0
+    fans: 0,
+    started: false
   };
 
   var BAR_MAX = { money: 400, energy: 100, mood: 100, fans: 200 };
@@ -237,15 +238,40 @@
     return Math.max(min, Math.min(max, num));
   }
 
+  function showDelta(key, delta) {
+    if (!delta) return;
+    var el = document.getElementById("delta-" + key);
+    if (!el) return;
+    el.textContent = (delta > 0 ? "+" : "") + delta;
+    el.classList.remove("positive", "negative", "visible");
+    el.classList.add(delta > 0 ? "positive" : "negative");
+    // 强制重绘以重置动画
+    void el.offsetWidth;
+    el.classList.add("visible");
+    setTimeout(function () {
+      el.classList.remove("visible");
+    }, 800);
+  }
+
   function applyChoice(choice) {
-    state.money = clamp(state.money + (choice.money || 0), 0, 9999);
-    var energyDelta = choice.energy || 0;
+    var moneyDelta = choice.money || 0;
+    var rawEnergyDelta = choice.energy || 0;
+    var energyDelta = rawEnergyDelta;
     if (energyDelta < 0) {
       energyDelta = Math.round(energyDelta * 0.7);
     }
+    var moodDelta = choice.mood || 0;
+    var fansDelta = choice.fans || 0;
+
+    state.money = clamp(state.money + moneyDelta, 0, 9999);
     state.energy = clamp(state.energy + energyDelta, 0, 100);
-    state.mood = clamp(state.mood + (choice.mood || 0), 0, 100);
-    state.fans = clamp(state.fans + (choice.fans || 0), 0, 9999);
+    state.mood = clamp(state.mood + moodDelta, 0, 100);
+    state.fans = clamp(state.fans + fansDelta, 0, 9999);
+
+    showDelta("money", moneyDelta);
+    showDelta("energy", energyDelta);
+    showDelta("mood", moodDelta);
+    showDelta("fans", fansDelta);
   }
 
   function getBarPercent(statName) {
@@ -359,6 +385,7 @@
     state.energy = 100;
     state.mood = 80;
     state.fans = 0;
+    state.started = false;
 
     document.getElementById("story-text").textContent = startStory;
     document.getElementById("choice-1").textContent = "开始游戏";
@@ -371,12 +398,24 @@
     updateUI();
     hideOverlay();
     currentEvent = null;
+
+    var container = document.getElementById("game-container");
+    if (container) {
+      container.classList.add("is-not-started");
+      container.classList.remove("is-started");
+    }
   }
 
   var currentEvent = null;
 
   document.getElementById("choice-1").addEventListener("click", function () {
     if (state.day === 1 && !currentEvent) {
+      state.started = true;
+      var container = document.getElementById("game-container");
+      if (container) {
+        container.classList.remove("is-not-started");
+        container.classList.add("is-started");
+      }
       currentEvent = getRandomEvent();
       showEvent(currentEvent);
       state.day = 1;
