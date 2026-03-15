@@ -1,0 +1,307 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #1a1b26;
+  --bg-soft: #16161e;
+  --surface: #24283b;
+  --surface-light: #32364a;
+  --card-bg: #2a2d3e;
+  --accent: #7aa2f7;
+  --accent-soft: #565f89;
+  --text: #c0caf5;
+  --text-dim: #a9b1d6;
+  --success: #9ece6a;
+  --warning: #e0af68;
+  --danger: #f7768e;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  --shadow-inner: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(160deg, var(--bg-soft) 0%, var(--bg) 40%, var(--surface) 100%);
+  min-height: 100vh;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.game-wrapper {
+  width: 100%;
+  max-width: 540px;
+  position: relative;
+}
+
+/* 卡片式容器 */
+.game-container {
+  width: 100%;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.card-inner {
+  background: var(--card-bg);
+  border-radius: var(--radius-sm);
+  margin: 0 14px 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: var(--shadow-inner);
+}
+
+.card-inner:first-of-type {
+  margin-top: 0;
+}
+
+.stats-bar.card-inner {
+  margin: 14px 14px 6px;
+  padding: 14px 12px 10px;
+}
+
+.day-badge.card-inner {
+  margin: 0 14px 8px;
+  padding: 8px 16px;
+  text-align: center;
+}
+
+.story-area.card-inner {
+  margin: 0 14px 12px;
+  padding: 20px 18px;
+  min-height: 120px;
+}
+
+.choices.card-inner {
+  margin: 0 14px 18px;
+  padding: 14px;
+}
+
+/* 顶部标题区 */
+.game-header {
+  background: linear-gradient(135deg, var(--accent) 0%, #bb9af7 100%);
+  padding: 16px 20px 18px;
+  text-align: center;
+  position: relative;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.game-header h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1b26;
+  letter-spacing: 0.02em;
+}
+
+.restart-btn-top {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(26, 27, 38, 0.35);
+  color: #1a1b26;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.restart-btn-top:hover {
+  background: rgba(26, 27, 38, 0.55);
+  transform: scale(1.05);
+}
+
+/* 属性条：进度条 + 数值 */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 6px 6px;
+  background: var(--surface);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.stat-icon {
+  font-size: 1.15rem;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.stat-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--surface-light);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.stat-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.35s ease;
+}
+
+.stat[data-stat="money"] .stat-fill { background: linear-gradient(90deg, #9ece6a, #b9f27c); }
+.stat[data-stat="energy"] .stat-fill { background: linear-gradient(90deg, #e0af68, #ff9e64); }
+.stat[data-stat="mood"] .stat-fill { background: linear-gradient(90deg, #f7768e, #ff9ebe); }
+.stat[data-stat="fans"] .stat-fill { background: linear-gradient(90deg, #7aa2f7, #bb9af7); }
+
+.stat-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.stat.danger .stat-value,
+.stat.danger .stat-fill { color: var(--danger); }
+.stat.danger .stat-fill { background: var(--danger) !important; }
+
+.stat.low .stat-value { color: var(--warning); }
+.stat.low .stat-fill { opacity: 0.9; }
+
+.stat.high .stat-value { color: var(--success); }
+
+/* 属性提示文案 */
+.stat-hint {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-align: center;
+  margin: 0 14px 10px;
+  min-height: 1.4em;
+}
+
+/* 天数徽章 */
+.day-badge {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.day-badge #day-num {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* 剧情区域 */
+.story-text {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* 选项按钮 */
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.choice-btn {
+  padding: 14px 12px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface-light);
+  border: 1px solid var(--accent-soft);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.08s, box-shadow 0.2s;
+}
+
+.choice-btn.card-btn {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.choice-btn:hover:not(:disabled) {
+  background: var(--accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(122, 162, 247, 0.2);
+}
+
+.choice-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.choice-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 结束/结局弹层 */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 10;
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.overlay-content.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  text-align: center;
+  max-width: 360px;
+  border: 1px solid var(--accent-soft);
+  box-shadow: var(--shadow);
+}
+
+.overlay-content h2 {
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+.overlay-content p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+
+.restart-btn {
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #1a1b26;
+  background: var(--accent);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.restart-btn:hover {
+  opacity: 0.95;
+  transform: scale(1.02);
+}

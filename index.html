@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模拟人生：大学生网红版</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-wrapper">
+    <div class="game-container card">
+      <header class="game-header card-header">
+        <h1>模拟人生：大学生网红版</h1>
+        <button type="button" class="icon-btn restart-btn-top" id="restart-btn-top" title="重新开始">🔄</button>
+      </header>
+
+      <section class="stats-bar card-inner">
+        <div class="stat" data-stat="money">
+          <span class="stat-icon">💰</span>
+          <span class="stat-label">金钱</span>
+          <div class="stat-bar"><div class="stat-fill" id="fill-money"></div></div>
+          <span class="stat-value" id="stat-money">100</span>
+        </div>
+        <div class="stat" data-stat="energy">
+          <span class="stat-icon">⚡</span>
+          <span class="stat-label">精力</span>
+          <div class="stat-bar"><div class="stat-fill" id="fill-energy"></div></div>
+          <span class="stat-value" id="stat-energy">100</span>
+        </div>
+        <div class="stat" data-stat="mood">
+          <span class="stat-icon">❤️</span>
+          <span class="stat-label">心情</span>
+          <div class="stat-bar"><div class="stat-fill" id="fill-mood"></div></div>
+          <span class="stat-value" id="stat-mood">80</span>
+        </div>
+        <div class="stat" data-stat="fans">
+          <span class="stat-icon">👥</span>
+          <span class="stat-label">粉丝</span>
+          <div class="stat-bar"><div class="stat-fill" id="fill-fans"></div></div>
+          <span class="stat-value" id="stat-fans">0</span>
+        </div>
+      </section>
+      <p class="stat-hint" id="stat-hint">一切刚刚开始，加油！</p>
+
+      <div class="day-badge card-inner">
+        第 <span id="day-num">1</span> 天
+      </div>
+
+      <main class="story-area card-inner">
+        <p class="story-text" id="story-text">
+          欢迎来到大学！你决定一边读书一边尝试做自媒体、当校园网红。今天是你开学的第一天，接下来会发生什么呢？
+        </p>
+      </main>
+
+      <section class="choices card-inner">
+        <button type="button" class="choice-btn card-btn" id="choice-1">开始游戏</button>
+        <button type="button" class="choice-btn card-btn" id="choice-2"></button>
+        <button type="button" class="choice-btn card-btn" id="choice-3"></button>
+        <button type="button" class="choice-btn card-btn" id="choice-4"></button>
+      </section>
+    </div>
+
+    <div class="overlay" id="game-overlay" hidden>
+      <div class="overlay-content card">
+        <h2 id="overlay-title">游戏结束</h2>
+        <p id="overlay-text"></p>
+        <button type="button" class="restart-btn" id="restart-btn">重新开始</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
