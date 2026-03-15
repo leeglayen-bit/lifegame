@@ -71,3 +71,40 @@
   <script src="script.js"></script>
 </body>
 </html>
+          <span class="stat-icon">👥</span>
+          <span class="stat-label">粉丝</span>
+          <div class="stat-bar"><div class="stat-fill" id="fill-fans"></div></div>
+          <span class="stat-value" id="stat-fans">0</span>
+        </div>
+      </section>
+      <p class="stat-hint" id="stat-hint">一切刚刚开始，加油！</p>
+
+      <div class="day-badge card-inner">
+        第 <span id="day-num">1</span> 天
+      </div>
+
+      <main class="story-area card-inner">
+        <p class="story-text" id="story-text">
+          欢迎来到大学！你决定一边读书一边尝试做自媒体、当校园网红。今天是你开学的第一天，接下来会发生什么呢？
+        </p>
+      </main>
+
+      <section class="choices card-inner">
+        <button type="button" class="choice-btn card-btn" id="choice-1">开始游戏</button>
+        <button type="button" class="choice-btn card-btn" id="choice-2"></button>
+        <button type="button" class="choice-btn card-btn" id="choice-3"></button>
+        <button type="button" class="choice-btn card-btn" id="choice-4"></button>
+      </section>
+    </div>
+
+    <div class="overlay" id="game-overlay" hidden>
+      <div class="overlay-content card">
+        <h2 id="overlay-title">游戏结束</h2>
+        <p id="overlay-text"></p>
+        <button type="button" class="restart-btn" id="restart-btn">重新开始</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
